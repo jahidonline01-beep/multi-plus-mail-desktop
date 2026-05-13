@@ -1,0 +1,28 @@
+name: Windows Desktop Build v34 Fixed Visible
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Setup Node.js 20 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build Windows installer only
+        run: npm run dist
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Windows installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: MultiplusMail-PC-v34-FixedVisible
+          path: dist/*.exe
