@@ -1,0 +1,452 @@
+:root{
+  --bg:#050716;--bg2:#0b1230;--panel:#0c1328;--panel2:#131d3d;
+  --stroke:#2a3b67;--cyan:#19f5df;--blue:#19a7ff;--pink:#ff4fd8;
+  --purple:#8b5cf6;--yellow:#ffd34d;--red:#ff4f62;--muted:#9aa7bd;
+  --text:#ffffff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050716;color:var(--text);font-family:Segoe UI,Arial,sans-serif}
+button,input,textarea{font-family:inherit}
+#app{height:100vh;min-height:0;display:grid;grid-template-columns:330px 1fr;background:#050716}
+.sidebar{
+  height:100vh;min-height:0;padding:16px 14px 12px;
+  background:
+    radial-gradient(circle at 12% 8%,rgba(33,243,208,.12),transparent 28%),
+    radial-gradient(circle at 98% 42%,rgba(255,61,206,.10),transparent 36%),
+    linear-gradient(160deg,#0b1530 0%,#070918 58%,#050716 100%);
+  border-right:1px solid rgba(124,58,237,.42);
+  box-shadow:inset -1px 0 0 rgba(33,243,208,.08), 0 0 36px rgba(0,0,0,.22);
+  display:flex;flex-direction:column;gap:12px;z-index:5;position:relative;overflow:hidden
+}
+.sidebar:after{
+  content:"";position:absolute;right:0;top:0;bottom:0;width:1px;
+  background:linear-gradient(180deg,transparent,var(--cyan),var(--pink),transparent);opacity:.45
+}
+.brand{display:flex;align-items:center;gap:12px;flex:0 0 auto}
+.icon{width:60px;height:60px;border-radius:16px;filter:drop-shadow(0 0 18px rgba(255,79,216,.22))}
+h1{font-size:28px;line-height:1.05;margin:0;background:linear-gradient(90deg,#ff5b6f,#ffd34d,#ff4fd8,#36d6ff);-webkit-background-clip:text;color:transparent;text-shadow:0 0 22px rgba(255,79,216,.15)}
+.brand p{display:none}
+.dots{margin-left:auto;width:42px;height:38px;border:1px solid rgba(255,255,255,.08);border-radius:19px;background:rgba(255,255,255,.08);color:white;font-size:18px;box-shadow:0 10px 26px rgba(0,0,0,.22)}
+.search{
+  flex:0 0 auto;height:44px;border:1px solid rgba(82,105,166,.66);border-radius:16px;
+  background:linear-gradient(135deg,rgba(20,31,61,.96),rgba(13,20,42,.96));
+  color:white;padding:0 14px 0 42px;outline:none;font-size:14px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 0 18px rgba(33,243,208,.06);
+  background-image:
+    radial-gradient(circle at 19px 50%,transparent 6px,transparent 6px),
+    linear-gradient(135deg,rgba(20,31,61,.96),rgba(13,20,42,.96));
+}
+.search::placeholder{color:#9aa7bd}
+.sidebar::before{
+  content:"⌕";position:absolute;left:31px;top:128px;color:#d4e1ff;font-size:22px;z-index:2;opacity:.95;pointer-events:none
+}
+.cards{
+  flex:1 1 auto;min-height:0;overflow-y:scroll;overflow-x:hidden;
+  display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:100px;align-content:start;gap:10px;
+  padding:4px 18px 8px 2px;scrollbar-gutter:stable;
+}
+.cards::-webkit-scrollbar{width:12px}
+.cards::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:12px}
+.cards::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,var(--cyan),var(--blue),var(--pink));
+  border-radius:12px;border:3px solid rgba(8,12,27,.92);
+  box-shadow:0 0 16px rgba(33,243,208,.35)
+}
+.cards::-webkit-scrollbar-button:single-button{height:14px;background:rgba(255,255,255,.04);border-radius:8px}
+.card{
+  height:100px;min-width:0;border:1px solid rgba(82,105,166,.62);border-radius:17px;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(25,167,255,.12),transparent 55%),
+    linear-gradient(145deg,rgba(35,48,98,.86),rgba(11,18,40,.96));
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+  cursor:pointer;user-select:none;padding:10px 12px;position:relative;overflow:hidden;
+  box-shadow:0 12px 26px rgba(0,0,0,.18)
+}
+.card:hover{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(33,243,208,.14),0 18px 38px rgba(0,0,0,.28)}
+.card.selected{outline:2px solid var(--red)}
+.mail-icon{height:32px;display:flex;align-items:center;margin-bottom:6px}
+.mail-icon svg{width:34px;height:34px;display:block;filter:drop-shadow(0 0 10px rgba(25,167,255,.16))}
+.serial-title{font-size:15px;font-weight:900;color:#fff;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-shadow:0 0 10px rgba(255,255,255,.08)}
+.custom-name{margin-top:3px;font-size:11px;color:#afbdd6;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.add{
+  flex:0 0 auto;height:46px;border:1px solid rgba(33,243,208,.55);border-radius:17px;
+  background:linear-gradient(135deg,var(--cyan),#0aa5c7,var(--pink));color:#06101b;font-weight:900;
+  box-shadow:0 0 24px rgba(33,243,208,.20);position:sticky;bottom:0
+}
+.delete-bar{
+  flex:0 0 auto;display:flex;align-items:center;gap:7px;padding:8px;border:1px solid rgba(255,79,98,.48);
+  border-radius:15px;background:rgba(255,79,98,.08)
+}
+.delete-bar span{font-size:12px;color:#ffd1d8;flex:1}.delete-bar button{height:30px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.2);color:white}
+.main{
+  position:relative;color:white;overflow:hidden;
+  background:
+    radial-gradient(circle at 53% 46%,rgba(139,92,246,.17),transparent 18%),
+    radial-gradient(circle at 86% 88%,rgba(255,79,216,.10),transparent 28%),
+    linear-gradient(120deg,#0d1c32 0%,#060814 48%,#0b0620 100%);
+}
+.home{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:white}
+.home img{width:128px;border-radius:32px;filter:drop-shadow(0 0 28px rgba(255,79,216,.22))}
+.home h2{font-size:44px;margin:22px 0 8px;text-shadow:0 0 24px rgba(255,255,255,.11)}
+.home p{font-size:16px;color:#dbe7ff;margin:0}.home p:after{content:"";display:block;width:128px;height:2px;margin:18px auto;background:linear-gradient(90deg,var(--cyan),var(--pink))}
+.hidden{display:none!important}.browser-panel{height:100vh;background:transparent}
+.topbar{height:62px;display:flex;align-items:center;gap:8px;padding:9px;background:linear-gradient(90deg,#101b35,#071124);border-bottom:1px solid var(--cyan);z-index:10;position:relative}
+.topbar button,.helper button{height:42px;border:1px solid var(--stroke);border-radius:15px;background:#18233f;color:white;font-weight:900;padding:0 14px}
+#title{flex:1;text-align:center;font-size:20px;font-weight:900;background:linear-gradient(90deg,#ff4fd8,#ffd34d,#21f3d0);-webkit-background-clip:text;color:transparent}
+.helper{height:50px;background:linear-gradient(90deg,#101b35,#071124);display:flex;gap:6px;padding:6px;border-bottom:1px solid var(--cyan);z-index:10;position:relative}
+.helper button{height:36px;color:var(--cyan)}.helper .wide{flex:1;color:white}
+.status{position:absolute;top:62px;left:0;right:0;background:white;color:#111827;padding:12px;text-align:center;font-weight:900;z-index:11}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.58);display:flex;align-items:center;justify-content:center;z-index:30}
+.sidebar-pop{inset:auto!important;left:16px!important;top:108px!important;width:300px!important;background:transparent!important;z-index:2147483647!important}
+.box{
+  width:100%;background:
+    radial-gradient(circle at 12% 10%,rgba(33,243,208,.10),transparent 30%),
+    linear-gradient(160deg,rgba(8,12,29,.98),rgba(12,18,42,.98));
+  border:1px solid rgba(124,58,237,.78);border-radius:22px;padding:18px;color:white;box-shadow:0 24px 70px rgba(0,0,0,.42)
+}
+.box h2{margin:0 0 8px;font-size:24px}.modal-subtitle{margin:0 0 14px;color:#b8c4da;font-size:13px;line-height:1.35}
+.provider{
+  width:100%;height:58px;margin:8px 0;border:1px solid rgba(82,105,166,.58);border-radius:16px;
+  background:linear-gradient(135deg,rgba(26,36,72,.88),rgba(13,20,42,.94));color:white;text-align:left;font-weight:900;
+  padding:0 12px;display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02)
+}
+.provider span:nth-child(2){flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.provider b{font-size:24px;color:#d8e6ff;font-weight:400}
+.provider:hover{transform:translateY(-1px);border-color:var(--cyan)}
+.provider-icon{width:32px;height:32px;display:grid;place-items:center;flex:none}.provider-icon svg{width:32px;height:32px;display:block}
+.google{border-color:#4285f4}.outlook{border-color:#0078d4}.yahoo{border-color:#7c3aed}.exchange{border-color:#ff7a1a}.other{border-color:#21f3d0}.danger{color:#ff9cad}
+.plain{border:0;background:transparent;color:#9aa7bd;margin-top:12px}.admin{display:flex;align-items:center;gap:14px;border:1px solid #00dcff;background:#062a3b;border-radius:22px;padding:14px;margin:12px 0}.admin span{color:#5eebff;flex:1}.admin button{width:auto}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{height:42px;border:1px solid #00dcff;border-radius:14px;background:rgba(0,220,255,.08);color:#00dcff;font-weight:900}
+label{display:block;color:#9aa7bd;margin:12px 0 6px}textarea{width:100%;height:68px;background:#0d1630;color:#fff;border:1px solid #273858;border-radius:12px;padding:10px}
+.tab-row{height:42px;background:linear-gradient(90deg,#0b142b,#071124);display:flex;align-items:center;gap:6px;padding:5px 8px;border-bottom:1px solid rgba(33,243,208,.35);overflow-x:auto;position:relative;z-index:10}
+.tab{height:30px;min-width:96px;max-width:170px;border:1px solid rgba(33,243,208,.35);background:rgba(24,35,63,.95);color:white;border-radius:13px;display:flex;align-items:center;gap:6px;padding:0 8px;font-weight:800;font-size:12px;white-space:nowrap;cursor:pointer}
+.tab.active{border-color:#21f3d0;color:#21f3d0;box-shadow:0 0 14px rgba(33,243,208,.18)}.tab span{overflow:hidden;text-overflow:ellipsis}.tab button{width:18px;height:18px;border:0;background:transparent;color:#ff9cad;padding:0;margin-left:auto}
+#refreshBtn{font-size:20px;color:#21f3d0}
+.card-menu{position:fixed;z-index:9999;width:150px;padding:7px;border:1px solid rgba(33,243,208,.55);border-radius:14px;background:rgba(8,12,27,.97);box-shadow:0 16px 55px rgba(0,0,0,.45)}
+.card-menu button{width:100%;height:30px;text-align:left;border:0;border-radius:9px;background:transparent;color:white;font-weight:800}.card-menu button:hover{background:rgba(33,243,208,.12);color:#21f3d0}
+.rename-input{width:100%;height:42px;background:#0d1630;color:#fff;border:1px solid #273858;border-radius:12px;padding:0 12px;outline:none}
+#renameModal.sidebar-pop{top:150px!important}.card{transition:none!important;contain:layout paint}.cards{will-change:scroll-position}
+/* v11 final fixes: search icon inside input, Telegram admin card */
+.sidebar::before{display:none!important;content:none!important}
+.search-wrap{
+  flex:0 0 auto;
+  position:relative;
+  height:44px;
+  width:100%;
+}
+.search-wrap .search{
+  width:100%;
+  height:44px;
+  padding-left:44px!important;
+  margin:0!important;
+  display:block;
+}
+.search-icon{
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  width:18px;
+  height:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#dce8ff;
+  font-size:20px;
+  line-height:1;
+  z-index:3;
+  pointer-events:none;
+  text-shadow:0 0 12px rgba(33,243,208,.32);
+}
+.telegram-card{
+  display:flex!important;
+  align-items:center;
+  gap:12px;
+  padding:14px!important;
+  border:1px solid rgba(34,158,217,.85)!important;
+  background:
+    radial-gradient(circle at 18% 20%,rgba(34,158,217,.24),transparent 34%),
+    linear-gradient(135deg,rgba(5,31,56,.96),rgba(9,16,38,.98))!important;
+  box-shadow:0 0 28px rgba(34,158,217,.20), inset 0 0 0 1px rgba(255,255,255,.04)!important;
+  border-radius:22px!important;
+  cursor:pointer;
+}
+.tg-logo{
+  width:54px;height:54px;flex:0 0 54px;
+  border-radius:20px;
+  display:grid;place-items:center;
+  background:rgba(34,158,217,.12);
+  box-shadow:0 0 22px rgba(34,158,217,.36);
+}
+.tg-logo svg{width:48px;height:48px;display:block;filter:drop-shadow(0 0 10px rgba(34,158,217,.45))}
+.tg-info{min-width:0;flex:1;display:flex;flex-direction:column;gap:3px}
+.tg-info b{font-size:15px;color:#fff}
+.tg-info span{font-size:11px!important;color:#8ee8ff!important}
+.tg-info strong{font-size:12px;color:#fff;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.telegram-card #openAdminBtn{
+  width:auto!important;
+  min-width:58px;
+  height:34px;
+  border:1px solid rgba(142,232,255,.65);
+  border-radius:13px;
+  background:rgba(34,158,217,.15);
+  color:#dff9ff;
+  font-weight:900;
+}
+.provider-box .provider span:nth-child(2){font-size:13px}/* v13 Extension Settings + stable search icon */
+.search-wrap{position:relative!important}
+.search-icon{
+  left:14px!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+  font-size:16px!important;
+  width:22px!important;
+  height:22px!important;
+  line-height:22px!important;
+}
+.search-wrap .search{padding-left:46px!important}
+#extBtn.hidden{display:none!important}
+#extBtn{
+  min-width:44px;
+  padding:0 12px;
+  border-color:rgba(33,243,208,.65)!important;
+  color:#21f3d0!important;
+}
+.extension-settings-menu{
+  width:100%;
+  height:52px;
+  border:1px solid rgba(33,243,208,.42);
+  border-radius:16px;
+  background:linear-gradient(135deg,rgba(22,34,70,.92),rgba(11,18,40,.96));
+  color:#dff9ff;
+  font-weight:900;
+  margin:10px 0;
+}
+.extension-box{
+  width:520px!important;
+  max-width:92vw;
+}
+.modal-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+}
+.icon-close{
+  width:38px;height:38px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+  color:#fff;font-size:20px;
+}
+.extension-toolbar{
+  display:flex;
+  gap:10px;
+  margin:12px 0 12px;
+}
+.primary-action,.secondary-action{
+  height:44px;border-radius:15px;
+  border:1px solid rgba(33,243,208,.55);
+  background:linear-gradient(135deg,#21f3d0,#19a7ff,#ff4fd8);
+  color:#071124;
+  font-weight:900;
+  padding:0 14px;
+}
+.secondary-action{
+  background:rgba(255,255,255,.07);
+  color:#dff9ff;
+}
+.dev-mode-card{
+  display:flex;justify-content:space-between;gap:12px;
+  border:1px solid rgba(124,58,237,.55);
+  border-radius:16px;
+  padding:12px 14px;
+  margin:10px 0;
+  background:rgba(124,58,237,.10);
+}
+.dev-mode-card b{color:#fff}
+.dev-mode-card span{color:#9eeeff;font-size:12px}
+.extension-list{
+  max-height:240px;overflow:auto;margin-top:12px;
+}
+.ext-row{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border:1px solid rgba(82,105,166,.45);
+  border-radius:14px;
+  padding:10px;
+  margin:8px 0;
+  background:rgba(12,19,40,.85);
+}
+.ext-row div{min-width:0}
+.ext-row b{display:block;color:#fff;font-size:14px}
+.ext-row span{display:block;color:#9aa7bd;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:340px}
+.ext-row button{
+  height:32px;border-radius:10px;border:1px solid rgba(255,79,98,.55);
+  background:rgba(255,79,98,.08);color:#ff9cad;font-weight:900;
+}
+.empty-ext{
+  border:1px dashed rgba(154,167,189,.35);
+  border-radius:14px;
+  padding:18px;text-align:center;color:#9aa7bd;
+}
+.extension-note{font-size:12px;color:#9aa7bd;line-height:1.4;margin:12px 0 0}/* v14 Upload-only extension manager */
+.extension-toolbar{display:block!important}
+.extension-toolbar .primary-action{width:100%!important}
+.extension-note{color:#b9c7dd!important}/* v15 fixed extension UI: visible, closable, Chrome-like popup */
+.extension-pop{
+  background:rgba(0,0,0,.18)!important;
+  align-items:flex-start!important;
+  justify-content:flex-end!important;
+  padding:86px 28px 0 0!important;
+  z-index:2147483600!important;
+}
+.extension-pop .extension-box{
+  width:460px!important;
+  max-width:92vw!important;
+  border-radius:22px!important;
+  box-shadow:0 30px 90px rgba(0,0,0,.55), 0 0 0 1px rgba(33,243,208,.16)!important;
+}
+.extension-toolbar{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:10px!important;
+}
+.extension-toolbar .primary-action,
+.extension-toolbar .secondary-action{
+  width:100%!important;
+  height:44px!important;
+}
+.secondary-action{
+  background:rgba(255,255,255,.08)!important;
+  color:#eaf7ff!important;
+  border:1px solid rgba(33,243,208,.42)!important;
+}
+.icon-close{
+  cursor:pointer!important;
+}
+#extBtn{
+  position:relative!important;
+  z-index:20!important;
+}/* v16: extension settings is a separate floating window, not blocking main app */
+#extBtn{z-index:30!important;border-color:rgba(33,243,208,.72)!important;color:#21f3d0!important;background:rgba(22,34,70,.92)!important}
+.extension-settings-menu{border-color:rgba(33,243,208,.55)!important;color:#eaf7ff!important}
+
+/* v17 visible extension window fixes */
+#extBtn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:48px!important;
+  height:42px!important;
+  z-index:99999!important;
+  position:relative!important;
+  background:linear-gradient(135deg,rgba(22,34,70,.96),rgba(9,16,38,.98))!important;
+  border:1px solid rgba(33,243,208,.78)!important;
+  box-shadow:0 0 18px rgba(33,243,208,.18)!important;
+}
+#extBtn.hidden{display:none!important}
+.extension-settings-menu{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+}
+/* v19 final: Extension UI removed; core functions restored */
+#extBtn,#extensionModal,#extensionSettingsBtn{display:none!important}
+.menu-action{
+  height:auto!important;
+  min-height:62px!important;
+  padding:12px!important;
+  gap:12px!important;
+  border-radius:18px!important;
+  display:flex!important;
+  align-items:center!important;
+  text-align:left!important;
+}
+.menu-action-icon{
+  width:42px!important;
+  height:42px!important;
+  flex:0 0 42px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:15px!important;
+  font-size:22px!important;
+  background:rgba(255,255,255,.08)!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)!important;
+}
+.menu-action span:nth-child(2){
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:3px!important;
+  flex:1!important;
+}
+.menu-action b{font-size:14px!important;color:#fff!important}
+.menu-action small{
+  display:block!important;
+  color:#9fb0c8!important;
+  font-size:11px!important;
+  font-weight:700!important;
+  line-height:1.25!important;
+}
+.cache-action{
+  border-color:rgba(33,243,208,.55)!important;
+  background:linear-gradient(135deg,rgba(18,42,58,.92),rgba(11,18,40,.96))!important;
+}
+.cache-action .menu-action-icon{color:#21f3d0!important;background:rgba(33,243,208,.12)!important}
+.delete-action{
+  border-color:rgba(255,79,98,.60)!important;
+  background:linear-gradient(135deg,rgba(66,20,36,.86),rgba(11,18,40,.96))!important;
+  color:#fff!important;
+}
+.delete-action .menu-action-icon{color:#ff9cad!important;background:rgba(255,79,98,.12)!important}
+.delete-action:hover,.cache-action:hover{
+  transform:translateY(-1px);
+  box-shadow:0 14px 35px rgba(0,0,0,.22),0 0 18px rgba(33,243,208,.10);
+}
+
+/* v29 premium nav buttons + Outlook manual indicator */
+#homeBtn,#backBtn{
+  border-radius:18px!important;
+  border:1px solid rgba(33,243,208,.55)!important;
+  background:
+    radial-gradient(circle at 28% 18%,rgba(255,255,255,.16),transparent 34%),
+    linear-gradient(135deg,rgba(23,35,72,.96),rgba(8,14,32,.98))!important;
+  box-shadow:0 0 18px rgba(33,243,208,.12), inset 0 0 0 1px rgba(255,255,255,.05)!important;
+  color:#f7fbff!important;
+  letter-spacing:.2px;
+}
+#homeBtn:hover,#backBtn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 12px 30px rgba(0,0,0,.30),0 0 18px rgba(33,243,208,.22)!important;
+}
+.manual-indicator{
+  width:42px!important;
+  height:42px!important;
+  padding:0!important;
+  border-radius:50%!important;
+  display:grid!important;
+  place-items:center!important;
+  cursor:pointer;
+  position:relative;
+  flex:0 0 42px;
+}
+.manual-indicator.hidden{display:none!important}
+.manual-indicator span{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  display:block;
+  box-shadow:0 0 20px currentColor,0 0 36px currentColor,inset 0 0 8px rgba(255,255,255,.55);
+  background:currentColor;
+}
+.manual-indicator.manual-off{
+  color:#22f58f!important;
+  border:1px solid rgba(34,245,143,.70)!important;
+  background:radial-gradient(circle at center,rgba(34,245,143,.18),rgba(10,25,25,.96))!important;
+}
+.manual-indicator.manual-on{
+  color:#ff3b5c!important;
+  border:1px solid rgba(255,59,92,.78)!important;
+  background:radial-gradient(circle at center,rgba(255,59,92,.18),rgba(35,10,18,.96))!important;
+}
+.search-wrap{z-index:25!important;pointer-events:auto!important}
+.search-wrap .search,.search{pointer-events:auto!important;user-select:text!important}

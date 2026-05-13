@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+<title>Multiplus Mail</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar" class="sidebar">
+    <div class="brand">
+      <img src="app_icon.png" class="icon">
+      <div>
+        <h1>Multiplus Mail</h1>
+        <p></p>
+      </div>
+      <button id="menuBtn" class="dots">•••</button>
+    </div>
+    <div class="search-wrap"><span class="search-icon">🔎</span><input id="searchBox" class="search" placeholder="Search containers"></div>
+    <div id="cards" class="cards"></div>
+    <div id="deleteBar" class="delete-bar hidden">
+      <span id="deleteCount">0 selected</span>
+      <button id="confirmDeleteBtn">Delete</button>
+      <button id="cancelDeleteBtn">Cancel</button>
+    </div>
+    <button id="addBtn" class="add">＋ New Container</button>
+  </aside>
+
+  <main id="mainArea" class="main">
+    <section id="home" class="home">
+      <img src="app_icon.png">
+      <h2>Multiplus Mail</h2>
+      <p>Advanced auto engine switch system.</p>
+    </section>
+
+    <section id="browserPanel" class="browser-panel hidden">
+      <div id="topbar" class="topbar">
+        <button id="homeBtn">⌂ Home</button>
+        <button id="backBtn">‹ Back</button>
+        <div id="title">Container</div>
+        <button id="manualModeBtn" class="manual-indicator hidden" title="Microsoft account manual mode off / double-click to open settings"><span></span></button>
+        <button id="refreshBtn">⟳</button>
+      </div>
+      <div id="tabRow" class="tab-row"></div>
+      <div id="helper" class="helper hidden">
+        <button id="copyNumberBtn">Number</button>
+        <button id="copyTextBtn">Text</button>
+        <button id="showSmsBtn" class="wide">Show SMS</button>
+        <button id="sentBtn">Sent</button>
+        <button id="checkBtn">Check</button>
+      </div>
+      <div id="status" class="status hidden">Loading...</div>
+    </section>
+  </main>
+</div>
+
+<div id="providerModal" class="modal sidebar-pop hidden"><div class="box provider-box">
+  <h2>Set up email</h2>
+  <p class="modal-subtitle">Select an email provider to add your account.</p>
+  <button data-provider="gmail" class="provider google"><span class="provider-icon" data-kind="gmail"></span><span>Google</span><b>›</b></button>
+  <button data-provider="outlook" class="provider outlook"><span class="provider-icon" data-kind="outlook"></span><span>Outlook / Hotmail / Live</span><b>›</b></button>
+  <button data-provider="yahoo" class="provider yahoo"><span class="provider-icon" data-kind="yahoo"></span><span>Yahoo</span><b>›</b></button>
+  <button data-provider="exchange" class="provider exchange"><span class="provider-icon" data-kind="exchange"></span><span>Exchange and Office 365</span><b>›</b></button>
+  <button data-provider="other" class="provider other"><span class="provider-icon" data-kind="other"></span><span>Other Mail</span><b>›</b></button>
+  <button id="closeProvider" class="plain">Cancel</button>
+</div></div>
+
+<div id="menuModal" class="modal sidebar-pop hidden"><div class="box"><h2>Multiplus Mail</h2>
+<button id="clearAllBtn" class="provider menu-action cache-action">
+  <span class="menu-action-icon">⟳</span>
+  <span><b>Clear All Cache</b><small>Clean browser cache and temporary data</small></span>
+</button>
+<div id="adminCard" class="admin telegram-card">
+  <div class="tg-logo" aria-hidden="true">
+    <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#229ED9"/><path d="M48.5 17.5 42.7 47c-.44 2.05-1.6 2.55-3.23 1.58l-9-6.64-4.35 4.18c-.48.48-.88.88-1.8.88l.64-9.15L41.6 22.8c.72-.64-.16-1-1.12-.36L20 35.33l-8.8-2.75c-1.91-.6-1.95-1.91.4-2.83l34.4-13.27c1.6-.58 3 .38 2.5 1.02z" fill="#fff"/></svg>
+  </div>
+  <div class="tg-info">
+    <b>Admin Support</b>
+    <span>Telegram • Fast help</span>
+    <strong>t.me/JAHID_1</strong>
+  </div>
+  <button id="openAdminBtn">Open ↗</button>
+</div>
+<button id="selectDeleteBtn" class="provider menu-action delete-action">
+  <span class="menu-action-icon">🗑</span>
+  <span><b>Select & Delete</b><small>Select containers and delete safely</small></span>
+</button>
+<button id="closeMenu" class="plain">Close</button>
+</div></div>
+
+<div id="renameModal" class="modal sidebar-pop hidden"><div class="box"><h2>Rename Container</h2>
+<label>Name</label><input id="renameInput" class="rename-input" placeholder="Container name">
+<div class="actions"><button id="saveRenameBtn">Save</button><button id="cancelRenameBtn">Cancel</button></div>
+</div></div>
+
+<div id="smsModal" class="modal hidden"><div class="box"><h2>Manual SMS Verification</h2>
+<label>Number</label><textarea id="smsNumber" readonly></textarea>
+<label>SMS Text</label><textarea id="smsText" readonly></textarea>
+<div class="actions"><button id="copySmsNumber">Copy Number</button><button id="copySmsText">Copy Text</button><button id="manualSent">I Sent SMS</button><button id="closeSms">Close</button></div>
+</div></div>
+
+<div id="cardMenu" class="card-menu hidden">
+  <button data-act="open">Open</button>
+  <button data-act="rename">Rename</button>
+  <button data-act="delete">Delete</button>
+  <button data-act="clear">Clear Cache</button>
+</div>
+
+<script src="renderer.js"></script>
+</body>
+</html>

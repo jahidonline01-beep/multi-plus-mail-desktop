@@ -1,0 +1,50 @@
+{
+  "name": "multiplus-mail-pc-v34-fixed-visible",
+  "version": "34.0.0",
+  "main": "main.js",
+  "author": "Jahid Online",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "32.3.3",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "com.jahid.multiplusmail",
+    "productName": "Multiplus Mail",
+    "artifactName": "Multiplus-Mail-PC-v34-FixedVisible.${ext}",
+    "files": [
+      "main.js",
+      "preload.js",
+      "index.html",
+      "styles.css",
+      "renderer.js",
+      "app_icon.png",
+      "app_icon.ico"
+    ],
+    "win": {
+      "icon": "app_icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Multiplus Mail",
+      "runAfterFinish": true,
+      "perMachine": false,
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}
